@@ -71,6 +71,7 @@ let adminController = {
     }
 
     const { file } = req
+
     if (file) {
       fs.readFile(file.path, (err, data) => {
         if (err) console.log('Error: ', err)
