@@ -136,17 +136,20 @@ let adminController = {
         } else if (user.isAdmin) {
           user.update({
             isAdmin: false
+          }).then((user) => {
+            req.flash('success_messages', 'user has successfully updated')
+            res.redirect('/admin/users')
           })
-          req.flash('success_messages', 'user has successfully updated')
+          
         } else {
           user.update({
             isAdmin: true
+          }).then((user) => {
+            req.flash('success_messages', 'user has successfully updated')
+            res.redirect('/admin/users')
           })
-          req.flash('success_messages', 'user has successfully updated')
+          
         }
-      })
-      .then((user) => {        
-        res.redirect('/admin/users')
       })
   }
 
