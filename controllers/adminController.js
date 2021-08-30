@@ -133,6 +133,7 @@ let adminController = {
       .then((user) => {
         if (user.email === 'root@example.com') {
           req.flash('error_messages', '總管理的權限不可更動！')
+          res.redirect('/admin/users')
         } else if (user.isAdmin) {
           user.update({
             isAdmin: false
