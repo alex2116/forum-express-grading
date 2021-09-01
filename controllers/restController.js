@@ -9,7 +9,7 @@ const restController = {
         ...r.dataValues,
         description: r.dataValues.description.substring(0, 50),
         categoryName: r.Category.name
-      }))
+      }))      
       return res.render('restaurants', {
         restaurants: data
       })
@@ -17,9 +17,9 @@ const restController = {
   },
 
   getRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id, { raw: true })
+    return Restaurant.findByPk(req.params.id, { include: Category })
       .then(restaurant => {
-        return res.render('restaurant', {restaurant})
+        return res.render('restaurant', {restaurant: restaurant.toJSON()})
       })
   }
 }
