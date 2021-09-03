@@ -13,7 +13,7 @@ let categoryController = {
             return res.render('admin/categories', {categories, category:category.toJSON()})
           })
         } else {
-        return res.render('admin/categories', {categories})
+          return res.render('admin/categories', { categories, currentUser: req.user})
       }
     })
   },

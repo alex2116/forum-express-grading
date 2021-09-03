@@ -13,7 +13,7 @@ let adminController = {
       include: [Category], 
       raw: true, 
       nest: true }).then(restaurants => {
-      return res.render('admin/restaurants', { restaurants })
+        return res.render('admin/restaurants', { restaurants, currentUser: req.user })
     })
   },
 
@@ -23,7 +23,7 @@ let adminController = {
       nest: true
     }).then(categories => {
       return res.render('admin/create', {
-        categories
+        categories, currentUser: req.user
       })
     })    
   },
@@ -70,7 +70,7 @@ let adminController = {
 
   getRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id, {include: [Category]}, { raw: true }).then(restaurant => {
-      return res.render('admin/restaurant', { restaurant: restaurant.toJSON() })
+      return res.render('admin/restaurant', { restaurant: restaurant.toJSON(), currentUser: req.user })
     })
   },
 
@@ -82,7 +82,8 @@ let adminController = {
       return Restaurant.findByPk(req.params.id).then(restaurant => {
         return res.render('admin/create', {
           categories,
-          restaurant: restaurant.toJSON()
+          restaurant: restaurant.toJSON(),
+          currentUser: req.user
         })
       })    
     })
@@ -94,7 +95,7 @@ let adminController = {
       return res.redirect('back')
     }
 
-    const { file } = req
+    const { file } = req //
     if (file) {
       imgur.setClientID(IMGUR_CLIENT_ID);
       imgur.upload(file.path, (err, img) => {
@@ -147,7 +148,7 @@ let adminController = {
 
   getUsers: (req, res) => {
     return User.findAll({ raw: true }).then(users => {
-      return res.render('admin/users', { users })
+      return res.render('admin/users', { users, currentUser: req.user })
     })
   },
   

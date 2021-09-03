@@ -39,7 +39,7 @@ const restController = {
        Category.findAll({
          raw: true,
          nest: true
-       }).then(categories => {
+       }).then(categories => {         
          return res.render('restaurants', {
            restaurants: data,
            categories,
@@ -47,7 +47,8 @@ const restController = {
            totalPage,
            prev,
            next,
-           categoryId
+           categoryId,
+           currentUser: req.user
          })
        })         
     })
@@ -59,7 +60,7 @@ const restController = {
       {model: Comment, include: [User]}
     ] })
       .then(restaurant => {
-        return res.render('restaurant', {restaurant: restaurant.toJSON()})
+        return res.render('restaurant', { restaurant: restaurant.toJSON(), currentUser: req.user})
       })
   }
 }
